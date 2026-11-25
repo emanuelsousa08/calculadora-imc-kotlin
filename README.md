@@ -25,27 +25,23 @@ O projeto tem como objetivo praticar o desenvolvimento de interfaces Android dec
 
 
 
+
 ## Fórmula do IMC
 
 O cálculo é realizado utilizando a seguinte fórmula:
 
-<div align="center">
-  <div style="display: inline-flex; align-items: center; gap: 12px; font-size: 24px;">
-    <strong>IMC =</strong>
-    <div style="display: inline-flex; flex-direction: column; align-items: center;">
-      <div style="padding: 4px 16px; border-bottom: 2px solid;">
-        Peso (kg)
-      </div>
-      <div style="padding: 4px 16px;">
-        Altura (m)<sup>2</sup>
-      </div>
-    </div>
-  </div>
-</div>
+<p align="center">
+  <img
+    src="docs/images/formula-imc.svg"
+    alt="IMC igual ao peso em quilogramas dividido pela altura em metros ao quadrado"
+    width="220"
+  />
+</p>
 
 Onde:
 - **Peso:** informado em quilogramas (kg).
 - **Altura:** informada em metros (m).
+
 
 ### Classificação do IMC
 
