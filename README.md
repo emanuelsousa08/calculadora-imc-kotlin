@@ -1,5 +1,10 @@
 # Calculadora de IMC
 
+[![Android CI](https://github.com/emanuelsousa08/calculadora-imc-kotlin/actions/workflows/android-ci.yml/badge.svg)](https://github.com/emanuelsousa08/calculadora-imc-kotlin/actions/workflows/android-ci.yml)
+![Kotlin](https://img.shields.io/badge/Kotlin-Jetpack%20Compose-7F52FF?logo=kotlin&logoColor=white)
+[![Licença MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-green)](LICENSE)
+![Android](https://img.shields.io/badge/Android-API%2024%2B-3DDC84?logo=android&logoColor=white)
+
 Aplicativo Android para cálculo do Índice de Massa Corporal (IMC), desenvolvido em **Kotlin** utilizando **Jetpack Compose**.
 
 Este projeto é a versão em Kotlin de um aplicativo que desenvolvi originalmente em React Native: [calculadora-imc](https://github.com/emanuelsousa08/calculadora-imc).
