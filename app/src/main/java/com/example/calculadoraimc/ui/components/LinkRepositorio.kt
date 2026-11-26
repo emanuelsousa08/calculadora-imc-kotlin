@@ -1,9 +1,8 @@
-package com.example.calculadoraimc
+package com.example.calculadoraimc.ui.components
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -35,7 +34,7 @@ fun LinkRepositorio() {
             .padding(bottom = 8.dp)
     ) {
         Text(
-            text = "Repositório do projeto",
+            text = "Ver código no GitHub",
             color = Color(0xFF1877F2),
             fontSize = 16.sp,
             textDecoration = TextDecoration.Underline

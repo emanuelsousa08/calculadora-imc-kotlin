@@ -1,4 +1,4 @@
-package com.example.calculadoraimc
+package com.example.calculadoraimc.ui.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun Title() {
+fun Title(texto: String = "Calculadora IMC") {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -21,7 +21,7 @@ fun Title() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Calculadora IMC",
+            text = texto,
             color = Color(0xFFFF4757),
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold

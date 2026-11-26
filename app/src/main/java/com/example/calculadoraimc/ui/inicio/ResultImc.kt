@@ -1,4 +1,4 @@
-package com.example.calculadoraimc
+package com.example.calculadoraimc.ui.inicio
 
 import android.content.Intent
 import androidx.compose.foundation.layout.Column
@@ -16,9 +16,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.calculadoraimc.domain.model.FaixaImc
+import com.example.calculadoraimc.ui.components.cor
 
 @Composable
-fun ResultImc(mensagem: String, resultado: String, classificacao: Classificacao) {
+fun ResultImc(mensagem: String, resultado: String, faixa: FaixaImc) {
     val context = LocalContext.current
 
     Column(
@@ -40,8 +42,8 @@ fun ResultImc(mensagem: String, resultado: String, classificacao: Classificacao)
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = classificacao.texto,
-            color = classificacao.cor,
+            text = faixa.rotulo,
+            color = faixa.cor(),
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold
         )
