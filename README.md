@@ -2,6 +2,8 @@
 
 Aplicativo Android para cálculo do Índice de Massa Corporal (IMC), desenvolvido em **Kotlin** utilizando **Jetpack Compose**.
 
+Este projeto é a versão em Kotlin de um aplicativo que desenvolvi originalmente em React Native: [calculadora-imc](https://github.com/emanuelsousa08/calculadora-imc).
+
 O projeto tem como objetivo praticar o desenvolvimento de interfaces Android declarativas e a implementação de funcionalidades básicas de uma aplicação mobile.
 
 ## Funcionalidades
@@ -11,6 +13,7 @@ O projeto tem como objetivo praticar o desenvolvimento de interfaces Android dec
 - **Validação de campos:** verifica o preenchimento dos dados necessários para o cálculo.
 - **Histórico de resultados:** mantém os resultados calculados durante a utilização do aplicativo.
 - **Compartilhamento:** permite compartilhar o resultado por meio dos aplicativos disponíveis no dispositivo.
+- **Link para o repositório:** botão que abre a página do projeto no GitHub.
 
 
 ## Tecnologias utilizadas
@@ -50,10 +53,10 @@ As faixas utilizadas pelo aplicativo são referências para adultos:
 | IMC | Classificação |
 | --- | --- |
 | Abaixo de 18,5 | Abaixo do peso |
-| 18,5 a 24,9 | Peso normal |
-| 25,0 a 29,9 | Sobrepeso |
-| 30,0 a 34,9 | Obesidade grau I |
-| 35,0 a 39,9 | Obesidade grau II |
+| De 18,5 a menos de 25,0 | Peso normal |
+| De 25,0 a menos de 30,0 | Sobrepeso |
+| De 30,0 a menos de 35,0 | Obesidade grau I |
+| De 35,0 a menos de 40,0 | Obesidade grau II |
 | 40,0 ou mais | Obesidade grau III |
 
 ## Pré-requisitos
@@ -83,9 +86,27 @@ Para executar o projeto, é necessário:
 
 4. Aguarde a sincronização do Gradle e o download das dependências.
 
-5. Selecione um emulador ou conecte um dispositivo Android compatível.
+5. Selecione um emulador ou conecte um dispositivo Android físico (veja [Executando em um dispositivo físico](#executando-em-um-dispositivo-físico)).
 
 6. Execute o aplicativo pela opção **Run** do Android Studio.
+
+
+### Executando em um dispositivo físico
+
+Se você não for usar o emulador do Android Studio, pode rodar o aplicativo direto no seu celular (Android 7.0 / API 24 ou superior). Para isso, é preciso ativar a depuração USB:
+
+1. **Ative as opções do desenvolvedor:** em **Configurações → Sobre o telefone**, toque 7 vezes em **Número da versão** (em alguns aparelhos o nome varia, como "Versão do MIUI" em celulares Xiaomi).
+2. **Ative a depuração USB:** em **Configurações → Sistema → Opções do desenvolvedor**, ligue a opção **Depuração USB**. O caminho exato pode mudar conforme o fabricante.
+3. **Conecte o celular ao computador** com um cabo USB que transmita dados, em modo **Transferência de arquivos**.
+4. **Autorize o computador:** aceite o aviso "Permitir depuração USB?" que aparece na tela do celular.
+5. No Android Studio, escolha o aparelho na lista de dispositivos, no topo da janela, e clique em **Run**.
+
+Para conferir se o aparelho foi reconhecido, use o comando abaixo (o `adb` fica na pasta `platform-tools` do Android SDK). O aparelho deve aparecer como `device`; se aparecer como `unauthorized`, aceite o aviso no celular.
+
+```bash
+adb devices
+```
+
 
 ### Gerar APK de depuração
 
@@ -109,6 +130,16 @@ O arquivo gerado estará disponível em:
 app/build/outputs/apk/debug/app-debug.apk
 ```
 
+Para instalar o APK manualmente, copie o arquivo para o celular (cabo, Google Drive, e-mail etc.), abra-o pelo gerenciador de arquivos e permita a instalação de fontes desconhecidas quando o sistema pedir.
+
+## Testes
+
+Para executar os testes unitários da classificação do IMC:
+
+```bash
+./gradlew test
+```
+
 ## Estrutura do projeto
 
 ```text
@@ -116,11 +147,13 @@ calculadora-imc-kotlin/
 ├── app/
 ├── docs/
 │   └── images/
+│       ├── formula-imc.svg
 │       ├── tela-inicial.jpg
 │       ├── campos-obrigatorios.jpg
 │       ├── preenchimento-campos.jpg
 │       └── resultados-e-historico.jpg
 ├── gradle/
+├── LICENSE
 ├── README.md
 ├── build.gradle.kts
 ├── settings.gradle.kts
