@@ -34,14 +34,42 @@ jobs:
       - name: Configurar o Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Rodar os testes
-        run: ./gradlew test
+      - name: Rodar os testes unitários
+        run: ./gradlew testDebugUnitTest --tests "com.example.calculadoraimc.domain.*"
 
       - name: Enviar relatório de testes
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: relatorio-testes
+          name: relatorio-testes-unitarios
+          path: app/build/reports/tests/
+          retention-days: 7
+
+  integration:
+    name: Testes de integração
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v5
+
+      - name: Configurar o JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Configurar o Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Rodar os testes de integração
+        run: ./gradlew testDebugUnitTest --tests "com.example.calculadoraimc.integration.*"
+
+      - name: Enviar relatório de testes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-testes-integracao
           path: app/build/reports/tests/
           retention-days: 7
 
@@ -75,7 +103,7 @@ jobs:
 
   build:
     name: Build do APK de depuração
-    needs: [test, lint]
+    needs: [test, integration, lint]
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
