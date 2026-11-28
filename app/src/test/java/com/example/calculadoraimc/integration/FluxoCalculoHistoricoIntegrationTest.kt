@@ -48,7 +48,7 @@ class FluxoCalculoHistoricoIntegrationTest {
         repositorio = HistoricoRepository(banco.registroDao())
 
         val fabrica = viewModelFactory {
-            initializer { InicioViewModel(repositorio) }
+            initializer { InicioViewModel(repositorio, atrasoCalculoMs = 0) }
             initializer { HistoricoViewModel(repositorio) }
         }
         val provider = ViewModelProvider(store, fabrica)
@@ -86,13 +86,44 @@ class FluxoCalculoHistoricoIntegrationTest {
     }
 
     @Test
+    fun alturaDigitadaSemVirgula_eInterpretadaEmMetros() {
+        // a máscara guarda só os dígitos: "175" equivale a 1,75 m
+        inicio.aoMudarAltura("175")
+        inicio.aoMudarPeso("70")
+
+        inicio.calcular()
+
+        assertEquals(22.86, inicio.estado.value.resultado!!.imc, 0.0001)
+
+        // espera o salvamento terminar antes de o banco ser fechado
+        runBlocking {
+            withTimeout(5_000) { repositorio.registros.first { it.isNotEmpty() } }
+        }
+    }
+
+    @Test
+    fun alturaForaDoIntervalo_mostraErroENaoCalcula() {
+        inicio.aoMudarAltura("75") // 7,5 m
+        inicio.aoMudarPeso("70")
+
+        inicio.calcular()
+
+        val estado = inicio.estado.value
+        assertNotNull(estado.erroAltura)
+        assertNull(estado.erroPeso)
+        assertNull(estado.resultado)
+    }
+
+    @Test
     fun calcularComCampoVazio_mostraErroENaoSalvaNada() {
         inicio.aoMudarAltura("1.75")
 
         inicio.calcular()
 
         val estado = inicio.estado.value
-        assertTrue(estado.erroCampos)
+        assertTrue(estado.temErro)
+        assertNull(estado.erroAltura)
+        assertNotNull(estado.erroPeso)
         assertEquals(1, estado.tentativasInvalidas)
         assertNull(estado.resultado)
 
@@ -100,6 +131,18 @@ class FluxoCalculoHistoricoIntegrationTest {
             withTimeout(5_000) { repositorio.registros.first() }
         }
         assertTrue(registros.isEmpty())
+    }
+
+    @Test
+    fun corrigirUmCampo_limpaSomenteOErroDeleMesmo() {
+        inicio.calcular() // os dois campos vazios
+        assertNotNull(inicio.estado.value.erroAltura)
+        assertNotNull(inicio.estado.value.erroPeso)
+
+        inicio.aoMudarAltura("175")
+
+        assertNull(inicio.estado.value.erroAltura)
+        assertNotNull(inicio.estado.value.erroPeso)
     }
 
     @Test

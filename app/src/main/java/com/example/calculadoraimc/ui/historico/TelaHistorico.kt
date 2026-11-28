@@ -84,7 +84,11 @@ fun TelaHistorico(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(estado.registros, key = { it.id }) { registro ->
-                        ItemHistorico(registro, aoClicar = { selecionado = registro })
+                        ItemHistorico(
+                            registro = registro,
+                            aoClicar = { selecionado = registro },
+                            modifier = Modifier.animateItem()
+                        )
                     }
                 }
             }
@@ -104,11 +108,15 @@ fun TelaHistorico(
 }
 
 @Composable
-private fun ItemHistorico(registro: RegistroImc, aoClicar: () -> Unit) {
+private fun ItemHistorico(
+    registro: RegistroImc,
+    aoClicar: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     val faixa = CalculadoraImc.classificar(registro.imc)
 
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .background(Color(0xFFF1F2F6))

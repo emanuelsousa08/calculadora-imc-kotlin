@@ -1,6 +1,7 @@
 package com.example.calculadoraimc.ui
 
 import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,10 +49,12 @@ fun CalculadoraApp() {
             .fillMaxSize()
             .background(Color(0xFFF0F0F0))
     ) {
-        when (tela) {
-            Tela.Inicio -> TelaInicio(modifier = Modifier.fillMaxSize())
-            Tela.Historico -> TelaHistorico(modifier = Modifier.fillMaxSize())
-            Tela.Informacoes -> TelaInformacoes(modifier = Modifier.fillMaxSize())
+        Crossfade(targetState = tela, animationSpec = tween(250), label = "tela") { atual ->
+            when (atual) {
+                Tela.Inicio -> TelaInicio(modifier = Modifier.fillMaxSize())
+                Tela.Historico -> TelaHistorico(modifier = Modifier.fillMaxSize())
+                Tela.Informacoes -> TelaInformacoes(modifier = Modifier.fillMaxSize())
+            }
         }
 
         BarraFlutuante(
